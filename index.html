@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGO颜色</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        h2{width: 320px;text-align: center;padding: 6px;}
+        div#imgs{width: 320px;background: #ff99f9;border: 1px solid #999;position: relative;}
+        div#imgs>img#images{width: 92px;height: 92px;border-radius: 50%;position: absolute;top: 78px;left: 75px;}
+        div#imgs>p#userName{font-family:"华文行楷";font-size: 32px;font-weight: bolder;position: absolute;left: 266px;top: 168px;writing-mode:vertical-lr;letter-spacing:10px;}
+        p#changImg{padding: 2px 0;border: 1px solid #666;width: 100px;text-align: center;background: skyblue;}
+        input#changText{padding: 2px 4px;width: 100px;}
+        div#imgs>img{display: block;width: 320px;height: 320px;}
+    </style>
+</head>
+<body>
+    <div id="imgs">
+        <img src="./demo.png" alt="请联系客服" />
+        <img src="./images/touxiang0.jpg" alt="" id="images"/>
+        <p id="userName">羊弟弟</p>
+    </div>
+    <h2>图片显示</h2>
+    <p>当前第<span id="nowImg">1</span>张 / 共14张</p>
+    <p onclick="changTouXiang()" id="changImg">更改头像</p>   
+    <h2>名称显示</h2>
+    <label for="positionX">X轴方向：</label>
+    <input oninput="positionXY()" type="range" name="positionX" id="positionX" max="320"/>
+    <input type="number" oninput="rangeTextXY()" name="numTextX" id="numTextX" max="320" min="0"><br>
+    <label for="positionY">Y轴方向：</label>
+    <input oninput="positionXY()" type="range" name="positionY" id="positionY" max="320"/>
+    <input type="number" oninput="rangeTextXY()" name="numTextY" id="numTextY" max="320" min="0"><br>
+    <label for="changText">输入更换名称 </label>
+    <input type="text" id="changText" value="羊弟弟" onchange="changeText()" />
+    <select name="" id="changFamily" onchange="changeFamily()">
+        <option value="华文行楷">华文行楷</option>
+        <option value="方正舒体">方正舒体</option>
+        <option value="华文新魏">华文新魏</option>
+        <option value="微软雅黑">微软雅黑</option>
+        <option value="华文隶书">华文隶书</option>
+    </select><br>
+    <label for="rangeTextR">R（红）：</label>
+    <input oninput="rangeTextRGB()" type="range" name="rangeTextR" id="rangeTextR" max="255"/>
+    <input type="number" oninput="rangeTextNumber()" name="numTextR" id="numTextR" max="255" min="0"><br>
+    <label for="rangeTextG">G（绿）：</label>
+    <input oninput="rangeTextRGB()" type="range" name="rangeTextG" id="rangeTextG" max="255"/>
+    <input type="number" oninput="rangeTextNumber()" name="numTextG" id="numTextG" max="255" min="0"><br>
+    <label for="rangeTextB">B（蓝）：</label>
+    <input oninput="rangeTextRGB()" type="range" name="rangeTextB" id="rangeTextB" max="255"/>
+    <input type="number" oninput="rangeTextNumber()" name="numTextB" id="numTextB" max="255" min="0"><br>
+    <h2>背景颜色</h2>
+    <input type="color" name="color" id="color" onchange="rangeColor()" value="#ff99f9"/>
+    颜色：<span id="colorText">#ff99f9</span><br>
+    <label for="rangeR">R（红）：</label>
+    <input oninput="rangeRGB()" type="range" name="rangeR" id="rangeR" max="255"/>
+    <input type="number" oninput="rangeNumber()" name="numR" id="numR" max="255" min="0"><br>
+    <label for="rangeG">G（绿）：</label>
+    <input oninput="rangeRGB()" type="range" name="rangeG" id="rangeG" max="255"/>
+    <input type="number" oninput="rangeNumber()" name="numG" id="numG" max="255" min="0"><br>
+    <label for="rangeB">B（蓝）：</label>
+    <input oninput="rangeRGB()" type="range" name="rangeB" id="rangeB" max="255"/>
+    <input type="number" oninput="rangeNumber()" name="numB" id="numB" max="255" min="0"><br>
+    <script>
+        let image = document.getElementById('imgs');
+        let images = document.getElementById('images');
+        let color = document.getElementById('color');    
+        let positionX = document.getElementById('positionX');
+        let positionY = document.getElementById('positionY');
+        let numTextX = document.getElementById('numTextX');
+        let numTextY = document.getElementById('numTextY');
+        let userName = document.getElementById('userName');
+        let changText = document.getElementById('changText');
+        let changFamily = document.getElementById('changFamily');
+        let rangeTextR = document.getElementById('rangeTextR');
+        let rangeTextG = document.getElementById('rangeTextG');
+        let rangeTextB = document.getElementById('rangeTextB');
+        let numTextR = document.getElementById('numTextR');
+        let numTextG = document.getElementById('numTextG');
+        let numTextB = document.getElementById('numTextB');
+        let rangeR = document.getElementById('rangeR');
+        let rangeG = document.getElementById('rangeG');
+        let rangeB = document.getElementById('rangeB');
+        let numR = document.getElementById('numR');
+        let numG = document.getElementById('numG');
+        let numB = document.getElementById('numB');
+        let colorText = document.getElementById('colorText');
+        positionX.value = 266;positionY.value = 168;numTextX.value = 266;numTextY.value = 168;
+        numTextR.value = 0;numTextG.value = 0;numTextB.value = 0;
+        rangeTextR.value = 0;rangeTextG.value = 0;rangeTextB.value = 0;
+        numR.value = 255;numG.value = 153;numB.value = 249;
+        rangeR.value = 255;rangeG.value = 153;rangeB.value = 249;
+        color.value = '#ff99f9';changText.value = '羊弟弟'
+        let total = 14;
+        let next = 1;
+        var imgs = new Array()
+        function changeFamily(){
+            userName.style.fontFamily = changFamily.value;
+        }
+        function changeText(){
+            userName.innerHTML = changText.value;
+        }
+        function changTouXiang(){
+            images.src = './images/touxiang'+next+'.jpg'
+            next ++;
+            document.getElementById('nowImg').innerHTML = next;
+            if (next >= total){next = 0}
+        }
+        function rangeColors(rgb) {
+            let re = rgb.match(/[0-9]{0,3}/g);//利用正则表达式去掉多余的部分，将rgb中的数字提取
+            let bgColor = "#"; let num= ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+            for (let i = 0; i < re.length; i++) {
+                let r = null, c = re[i], l = c;
+                let sixteen = [];
+                while (c >= 16){
+                    r = c % 16;
+                    c = (c / 16) >> 0;
+                    sixteen.push(num[r]);
+                } sixteen.push(num[c]);
+                if(l < 16&&l != ""){
+                    sixteen.push(0)
+                }
+                bgColor += sixteen.reverse().join('');
+            }
+            color.value = bgColor;
+            colorText.innerHTML = bgColor;
+            image.style.backgroundColor = rgb;
+        }
+        function rangeTextXY(){
+            userName.style.top = numTextY.value + 'px';
+            userName.style.left = numTextX.value + 'px';
+            positionX.value = numTextX.value;
+            positionY.value = numTextY.value;
+        }
+        function positionXY() {
+            userName.style.top = positionY.value + 'px';
+            userName.style.left = positionX.value + 'px';
+            numTextX.value = positionX.value;
+            numTextY.value = positionY.value;
+        }
+        function rangeTextRGB(){
+            let rgb = 'rgb('+rangeTextR.value+','+rangeTextG.value+','+rangeTextB.value+')';
+            numTextR.value = rangeTextR.value;
+            numTextG.value = rangeTextG.value;
+            numTextB.value = rangeTextB.value;
+            userName.style.color = rgb;
+        }
+        function rangeTextNumber() {
+            let rgb = 'rgb('+numTextR.value+','+numTextG.value+','+numTextB.value+')';
+            rangeTextR.value = numTextR.value;
+            rangeTextG.value = numTextG.value;
+            rangeTextB.value = numTextB.value;
+            userName.style.color = rgb;
+        }
+        function rangeRGB(){
+            let rgb = 'rgb('+rangeR.value+','+rangeG.value+','+rangeB.value+')';
+            numR.value = rangeR.value;
+            numG.value = rangeG.value;
+            numB.value = rangeB.value;
+            rangeColors(rgb);
+        }
+        function rangeNumber() {
+            let rgb = 'rgb('+numR.value+','+numG.value+','+numB.value+')';
+            rangeR.value = numR.value;
+            rangeG.value = numG.value;
+            rangeB.value = numB.value;
+            rangeColors(rgb);
+        }
+        function rangeColor(){
+            image.style.backgroundColor = color.value;
+            let colorR = parseInt('0x' + color.value.slice(1, 3));
+            let colorG = parseInt('0x' + color.value.slice(3, 5));
+            let colorB = parseInt('0x' + color.value.slice(5, 7));
+            rangeR.value = colorR;rangeG.value = colorG;rangeB.value = colorB;
+            numR.value = colorR;numG.value = colorG;numB.value = colorB;
+            colorText.innerHTML = color.value;
+        }
+        function preload(){
+			for (i = 0; i < preload.arguments.length; i++) {
+				imgs[i] = new Image()
+				imgs[i].src = preload.arguments[i]
+			}
+		}
+		preload(
+		    "./images/touxiang1.jpg",
+			"./images/touxiang2.jpg",
+			"./images/touxiang3.jpg",
+			"./images/touxiang4.jpg",
+			"./images/touxiang5.jpg",
+			"./images/touxiang6.jpg",
+			"./images/touxiang7.jpg",
+			"./images/touxiang8.jpg",
+			"./images/touxiang9.jpg",
+			"./images/touxiang10.jpg",
+			"./images/touxiang11.jpg",
+			"./images/touxiang12.jpg",
+			"./images/touxiang13.jpg",
+		)
+    </script>
+</body>
+</html>
